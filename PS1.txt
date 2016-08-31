@@ -1,0 +1,62 @@
+# Student Name: Haikun
+# NetID: hlg 483
+
+Question 1:
+The attributes with outliers are fixed acidity, volatile acidity, citric acid, chlorides, free Sulfur Dioxide, total sulfur dioxide, and pH. 
+
+
+Question 2:
+ZeroR accuracy is simply calculated by MAX(# of 'bad' samples, #of 'good' samples) divided by Total # of samples in training set = 1179/1890 = 62.381%. 
+ZeroR, used in wine dataset, is the simplest classification method which relies on the ‘quality’ and ignores all other attributes (such as fixed acidity, volatile acidity, citric acid, etc.). ZeroR classifier simply predicts the majority category where wine quality is bad, which gives us a 62.381% accuracy of the training data. So, it is useful for determining a baseline performance for other classification methods. A better classifier should achieve an accuracy higher than 62.381%
+
+
+Question 3:
+Alcohol is the most informative single feature as the root (threshold = 10.8) of J48 pruned tree. That means choosing alcohol as feature for initial splitting of the dataset can achieve the highest information gain among other attributes. When alcohol<10.8, quality tends to be ‘bad’; when alcohol > 10.8, quality tends to be ‘good’.
+
+
+Question 4:
+Accuracy without 10-fold CV: 95.873 %
+Accuracy with 10-fold CV: 85.9788 %
+10-fold cross-validation: The wine dataset is partitioned into 10 equal-size sub-datasets (189 samples of each sub-dataset). Among them, 9 sub-datasets are used as training while the remaining sub-dataset is retained as validation data for testing. The cross-validation process is then repeated 10 times with using different validation sub-dataset. The 10 results from the folds are averaged or combined to produce a final classifier. 
+The reason why the accuracy of using 10-fold cross-validation drops compared with that of not using cross-validation is that cross-validation generalizes decision tree model by involving multi validation steps. Cross-validation, used in wine dataset, relieves the over-fitting problem of the original decision tree model such that the predicted result of new input trends to be more reliable. 
+The importance of cross-validation is that it can be used to detecting and preventing over-fitting. It is very useful to give a reliable accuracy measure for a particular classification model.
+
+
+Question 5:
+Model: weka.classifiers.trees.RandomForest -I 100 -K 4 -S 10
+10-fold CV Accuracy: 90.8466 %
+
+
+Question 6:
+Using J48 -C 0.25 -M 2 with percentage split equals to 66% as the baseline, whose accuracy is 83.9813 % with 643 instances, we can try different models (such as BayesNet, RBFNetwork, SMO, AdaBoost, NearestNeighbour and RandomForest) using the same percentage split and find one with the highest accuracy. RandomForest -I 100 -K 4 -S 10, which is RamdonForest model with 100 trees, 4 features and 10 seeds, achieves an 89.5801 % accuracy (highest among other classifier models) higher than the baseline model. Then we can also check the accuracy of 10-fold cross-validation, which is, again, better than J48. The model parameters are changed to 100 trees 4 features and 10 seeds.
+
+
+Question 7:
+I do not agree the statement. Although, with increasingly huge amount of data generated, data science becomes a hot issue to solve problems, the quantitative measurement can not capture the complexity of reality, lots of things can not be perfectly represented into numerical data such as continuous phenomena and human’s emotions, and it only focuses on partial perspectives. A systematic understanding of the phenomena is an indispensable boost to use the data more efficiently. However, the numerical data is still a simple representation of the phenomena which can not used to govern the systems.
+
+
+Question 8:
+|-------------|----------------------------------|--------------------------------------|
+|             |	RandomTree -K 0 -M 1.0 -S 1 (A)   |   RandomForest -I 100 -K 0 -S 1 (B)  |
+|-------------|----------------------------------|--------------------------------------|
+|Wine dataset |	86.0317 %                         |    90.7937 %                         |
+|-------------|----------------------------------|--------------------------------------|
+|Car dataset  |	84.2857 %                         |    93.3613 %                         |
+|-------------|----------------------------------|--------------------------------------|
+wine_acc(A) + car_acc(B) – wine_acc(B) – car_acc(A) = 4.3136%
+The output of the classification for wine dataset is a binary value; while for car dataset, the output is one of 4 distinct classes. Based on this property, the classifier model for wine dataset could be a tree structure; and a forest structure should be suitable for multiclass problem of the car dataset. So, I picked up random tree as classifier A and random forest as classifier B. The results of experiment prove this strategy works sound in this question. 
+
+
+Question 9:
+|-------------|--------------|------------------|
+|             |	Input space   | Output space     |
+|-------------|--------------|------------------|
+|Wine dataset |	12            |    2             |
+|-------------|--------------|------------------|
+|Car dataset  |	7             |    4             |
+|-------------|--------------|------------------|
+The classifier output space of wine dataset only contains a 2 values (quality = ‘good’ or ‘bad’), which can be considers as a binary classification task. While, for car dataset, the output space contains 4 distinct values (‘unacc’,‘acc’,‘good’and ‘vgood’), which turns out to be a multiclass classification task. As shown in the previous question, different classifier models work well in different situations.
+In the data distribution point of view, the class value of wine dataset biases to ‘bad’, where the number of ‘bad’ samples is larger than the number of ‘good’ samples. For the car dataset, the class value ‘unacc’ dominants the output sample space, where the number of ‘unacc’ samples is the largest among other class values. 
+
+
+
